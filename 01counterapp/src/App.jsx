@@ -19,7 +19,7 @@ function App() {
     if (count >= 0) {
       return count;
     } else {
-      return 0;
+      return setcount(0);
     }
   };
 

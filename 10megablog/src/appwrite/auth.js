@@ -15,19 +15,18 @@ export class AuthService {
   }
 
   // sign-up functionality
-  async createAccount({ name, email, password }) {
+  async createAccount({ email, password, name }) {
     try {
       const userAccount = await this.account.create(
         ID.unique(),
-        name,
         email,
-        password
+        password,
+        name
       );
-
       if (userAccount) {
-        return this.login(email, password); // logging in user directly
+        // call another method
+        return this.login({ email, password });
       } else {
-        console.log('Error occured in createAccount()');
         return userAccount;
       }
     } catch (error) {
@@ -40,7 +39,6 @@ export class AuthService {
     try {
       return await this.account.createEmailSession(email, password);
     } catch (error) {
-      console.log('Error occured in login()');
       throw error;
     }
   }
@@ -50,9 +48,10 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      console.log('Error occured in fetching current user status');
-      throw error;
+      console.log('Appwrite serive :: getCurrentUser :: error', error);
     }
+
+    return null;
   }
 
   // logout functionality

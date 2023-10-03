@@ -7,7 +7,10 @@ import Signup from './Signup.jsx';
 import Login from './Login.jsx';
 import Container from './Container/Container.jsx';
 import PostForm from './PostForm/PostForm.jsx';
-import PostCard from './PostCard.jsx'
+import PostCard from './PostCard.jsx';
+import Button from './Button.jsx';
+import Input from './Input.jsx';
+import Select from './Select.jsx';
 
 export {
   Header,
@@ -19,5 +22,8 @@ export {
   Login,
   Container,
   PostForm,
-  PostCard
+  PostCard,
+  Button,
+  Input,
+  Select,
 };

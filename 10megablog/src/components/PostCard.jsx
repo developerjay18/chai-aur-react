@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { service } from '../appwrite/conf';
+import service from '../appwrite/conf';
 
-function PostCard({ $id, title, featuredImage }) {
+function PostCard({ $id, title,featuredImage,featuredimage }) {
   return (
     <Link to={`post/${$id}`}>
       <div className="w-full justify-center mb-4">
         <div className="w-full justify-center mb-4">
           <img
-            src={service.getFilePreview(featuredImage)}
+            src={service.getFilePreview(featuredimage)}
             alt={title}
             className="rounded-xl"
           />

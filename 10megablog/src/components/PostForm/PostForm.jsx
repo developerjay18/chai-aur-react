@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { appwriteService } from '../../appwrite/conf.js';
+import appwriteService from '../../appwrite/conf.js';
 import { Input, Button, Select, RTE } from '../index.js';
 import { useForm } from 'react-hook-form';
 
@@ -20,11 +20,11 @@ function PostForm({ post }) {
   const userData = useSelector((state) => state.userData);
 
   const submit = async (data) => {
-    // console data and see what we are getting in [data] variable H.W
+    console.log(data);
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
-        : null;
+        : console.log('Image is not uploading...');
 
       if (file) {
         appwriteService.deleteFile(post.featuredImage);
@@ -36,22 +36,22 @@ function PostForm({ post }) {
       });
 
       if (dbPost) {
-        navigate(`post/${dbPost.$id}`);
+        navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = await appwriteService.uploadFile(data.image[0]);
+      const file = await appwriteService.uploadFile(data.featuredimage[0]);
 
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
-
+        data.featuredimage = fileId;
         const dbPost = await appwriteService.createPost({
           ...data,
-          userId: userData.$id,
+          userid: userData.$id,
         });
 
         if (dbPost) {
-          navigate(`post/${dbPost.$id}`);
+          navigate(`/post/${dbPost.$id}`);
         }
       }
     }
@@ -114,7 +114,7 @@ function PostForm({ post }) {
           type="file"
           className="mb-4"
           accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register('image', { required: !post })}
+          {...register('featuredimage', { required: !post })}
         />
         {post && (
           <div className="w-full mb-4">

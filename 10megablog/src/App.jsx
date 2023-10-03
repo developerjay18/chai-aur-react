@@ -29,7 +29,6 @@ function App() {
     <div className="main-container bg-black min-h-screen text-white">
       <Header />
       <Outlet />
-      <h1>Here is my changing content ::mine outlet is above::</h1>
       <Footer />
     </div>
   ) : null;

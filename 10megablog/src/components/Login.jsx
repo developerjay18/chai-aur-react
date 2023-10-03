@@ -18,12 +18,16 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin(userData));
+        if (userData) {
+          dispatch(authLogin(userData));
+        } else {
+          console.log('not getting user yaaar');
+        }
+
         navigate('/');
       }
     } catch (error) {
-      setError(error);
-      console.log(`${error}`);
+      setError(error.message);
     }
   };
 
@@ -56,13 +60,8 @@ function Login() {
               label="Email: "
               placeholder="Enter email"
               type="email"
-              {...register('email,', {
+              {...register('email', {
                 required: true,
-                validate: {
-                  matchPatern: (value) =>
-                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                    'Email address must be a valid address',
-                },
               })}
             />
             <Input
